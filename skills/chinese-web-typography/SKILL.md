@@ -1,5 +1,6 @@
 ---
 name: chinese-web-typography
+license: MIT
 description: "Refine Chinese web typography and mixed Chinese–Latin copy: spacing with pangu.js, semantic wrapping, short final lines, responsive headlines, product names, and optical punctuation alignment. Use when building or polishing Chinese web pages or reviewing their typography."
 ---
 
@@ -66,4 +67,6 @@ Punctuation compression is an optional display treatment, not a global rule. Pre
 
 ## Companion demo
 
-`demo/index.html` is an offline-capable before/after gallery with six isolated cases, a container-width slider, and switchable views. It uses vendored pangu and an open font; open it directly or run `pnpm demo`. `pnpm test` checks spacing and browser layout; `pnpm screenshots` captures reproducible comparisons. These are reference fixtures, not a script to rewrite somebody else's website.
+The optional [demo and development tools](https://github.com/Skywt2003/chinese-web-typography) live in the source repository, outside the installed skill. The [HTML gallery](https://github.com/Skywt2003/chinese-web-typography/blob/main/demo/index.html) illustrates six before/after cases; download the repository to open it offline. It is a reference fixture, not a script to rewrite another website.
+
+Installing this skill needs no Node dependencies. Install pangu in the target project only when choosing that spacing strategy. Demo commands (`pnpm demo`, `pnpm test`, `pnpm screenshots`, `pnpm vendor`) run from the source repository, not from the installed skill directory.

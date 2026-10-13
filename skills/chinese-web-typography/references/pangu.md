@@ -30,7 +30,7 @@ Pangu also has punctuation and symbol opinions. Review transformed samples, espe
 
 ## Static HTML
 
-The demo vendors `dist/browser/pangu.umd.js` with its MIT license, so no CDN or install is needed to open it. For a bundler-free site, copy the pinned distribution and license:
+The [source repository demo](https://github.com/Skywt2003/chinese-web-typography/tree/main/demo) vendors `dist/browser/pangu.umd.js` with its MIT license, so no CDN or install is needed to open it. For a bundler-free site, copy the pinned distribution and license:
 
 ```html
 <script src="./vendor/pangu.umd.js"></script>
@@ -52,4 +52,4 @@ For a genuinely static, non-framework prose subtree, `pangu.spaceNode(element)` 
 
 This prevents native auto-spacing from becoming an additional strategy in browsers that support the property. An unsupported browser simply ignores it and still renders real spaces. Existing spaces should remain stable under repeated formatting; test representative copy. Intentional NBSP product groups are constructed after formatting and separately tested.
 
-The vendored file can be refreshed using `pnpm vendor`; keep its version, upstream license, lockfile, and tests in sync. Do not silently switch to an unpinned CDN `latest` URL.
+In the source repository (not the installed skill), the vendored file can be refreshed using `pnpm vendor`; keep its version, upstream license, lockfile, and tests in sync. Do not silently switch to an unpinned CDN `latest` URL.

@@ -24,9 +24,7 @@ async function lineCounts(locator) {
 		return [...lines.values()];
 	});
 }
-test("real pangu transform, controls, and preserved wording", async ({
-	page,
-}) => {
+test("real pangu transform and preserved wording", async ({ page }) => {
 	const errors = [];
 	page.on("pageerror", (error) => errors.push(error.message));
 	await ready(page);
@@ -44,13 +42,6 @@ test("real pangu transform, controls, and preserved wording", async ({
 		const text = await page.locator(`#${id} .sample`).allTextContents();
 		expect(text[0].replace(/\s/g, "")).toBe(text[1].replace(/\s/g, ""));
 	}
-	await page.getByRole("button", { name: "After", exact: true }).click();
-	await expect(page.locator(".panel.before").first()).toBeHidden();
-	await expect(
-		page.getByRole("button", { name: "After", exact: true }),
-	).toHaveAttribute("aria-pressed", "true");
-	await page.locator("#width").fill("300");
-	await expect(page.locator("#width-value")).toHaveText("300 px");
 	expect((await page.request.get(url + "/missing-favicon.ico")).status()).toBe(
 		404,
 	);
@@ -61,7 +52,11 @@ test("final word and semantic units stay on one line", async ({ page }) => {
 	await page.setViewportSize({ width: 1440, height: 1000 });
 	await ready(page);
 	for (const width of [260, 280, 320, 360, 400, 430, 431, 480, 600]) {
-		await page.locator("#width").fill(String(width));
+		await page
+			.locator("#orphan .sample, #semantic .sample")
+			.evaluateAll((elements, width) => {
+				for (const element of elements) element.style.width = `${width}px`;
+			}, width);
 		for (const locator of await page
 			.locator("#orphan [data-protected], #semantic [data-protected]")
 			.all()) {
@@ -73,14 +68,21 @@ test("responsive title changes at the actual container boundary", async ({
 	page,
 }) => {
 	await page.setViewportSize({ width: 1440, height: 1000 });
-	await ready(page, "?view=after&width=430");
+	await ready(page);
+	await page.locator("#responsive .after .sample").evaluate((element) => {
+		element.style.width = "430px";
+	});
 	await expect(page.locator(".responsive-break")).toHaveCSS("display", "block");
 	expect(
 		await lineCounts(page.locator("#responsive .after .headline")),
 	).toEqual(["给灵感留白，", "让创作发生。"]);
-	await page.locator("#width").fill("431");
+	await page.locator("#responsive .after .sample").evaluate((element) => {
+		element.style.width = "431px";
+	});
 	await expect(page.locator(".responsive-break")).toHaveCSS("display", "none");
-	await page.locator("#width").fill("600");
+	await page.locator("#responsive .after .sample").evaluate((element) => {
+		element.style.width = "600px";
+	});
 	expect(
 		await lineCounts(page.locator("#responsive .after .headline")),
 	).toHaveLength(1);
@@ -88,7 +90,7 @@ test("responsive title changes at the actual container boundary", async ({
 test("hanging punctuation keeps the written text and centers the word", async ({
 	page,
 }) => {
-	await ready(page, "?view=after");
+	await ready(page);
 	const delta = await page
 		.locator("#optical .after .optical")
 		.evaluate((element) => {
@@ -198,6 +200,9 @@ test("a longer product name retains a legal break and fits a narrow container", 
 }) => {
 	await page.setViewportSize({ width: 320, height: 1000 });
 	await ready(page);
+	await page.locator("#product .after .sample").evaluate((element) => {
+		element.style.width = "260px";
+	});
 	await page.locator("#product .after .long-name").evaluate((element) => {
 		element.textContent = "Studio Creative Edition Note\u00a0Pro";
 	});
@@ -209,4 +214,42 @@ test("a longer product name retains a legal break and fits a narrow container", 
 			.locator("#product .after .sample")
 			.evaluate((element) => element.scrollWidth <= element.clientWidth + 1),
 	).toBe(true);
+});
+
+test("cards have individual labels and stack on narrow screens without width controls", async ({
+	page,
+}) => {
+	for (const width of [390, 1440]) {
+		await page.setViewportSize({ width, height: 1000 });
+		await ready(page, "?view=after&width=600");
+		await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+			"Chinese Web Typography",
+		);
+		await expect(page.locator("button, input")).toHaveCount(0);
+		await expect(
+			page.getByRole("heading", { name: "Before", exact: true }),
+		).toHaveCount(6);
+		await expect(
+			page.getByRole("heading", { name: "After", exact: true }),
+		).toHaveCount(6);
+		const pairs = await page.locator(".pair").evaluateAll((elements) =>
+			elements.map((element) => {
+				const before = element.querySelector(".before").getBoundingClientRect();
+				const after = element.querySelector(".after").getBoundingClientRect();
+				return innerWidth <= 760
+					? before.left === after.left && after.top > before.bottom
+					: before.top === after.top && after.left > before.right;
+			}),
+		);
+		expect(pairs.every(Boolean)).toBe(true);
+		if (width === 1440) {
+			for (const sample of await page.locator(".sample").all())
+				await expect(sample).toHaveCSS("width", "360px");
+		}
+		expect(
+			await page
+				.locator(".comparison")
+				.evaluate((element) => element.scrollWidth <= element.clientWidth),
+		).toBe(true);
+	}
 });

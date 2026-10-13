@@ -38,117 +38,71 @@ a {
 	color: inherit;
 	text-underline-offset: 4px;
 }
-.wordmark {
-	font-size: 22px;
-	font-weight: 600;
-	text-decoration: none;
+header {
+	margin-bottom: 36px;
 }
-.wordmark span {
-	margin-left: 14px;
-	letter-spacing: 2px;
-	font-size: 10px;
+h1 {
+	margin: 0;
+	font-size: 32px;
+	font-weight: 600;
+	line-height: 1.4;
+}
+.subtitle {
+	margin: 12px 0 0;
+	font-size: 13px;
+	line-height: 1.8;
+	color: var(--muted);
+}
+.install {
+	margin-bottom: 36px;
+	padding: 24px;
+	border: 1px solid var(--line);
+	border-radius: 10px;
+}
+.install h2 {
+	margin: 0 0 16px;
+	font-size: 16px;
+	font-weight: 600;
+}
+.install p {
+	margin: 16px 0 10px;
+	font-size: 13px;
+	line-height: 1.8;
+	color: var(--muted);
+}
+.install pre {
+	margin: 0;
+	padding: 14px 16px;
+	background: #fff;
+	border: 1px solid var(--line);
+	border-radius: 6px;
+	white-space: pre-wrap;
+	overflow-wrap: anywhere;
+}
+.install code {
+	font-family: ui-monospace, monospace;
+	font-size: 13px;
+	line-height: 1.8;
+}
+.install blockquote {
+	margin: 0 0 16px;
+	padding-left: 14px;
+	border-left: 2px solid var(--line);
+	font-size: 13px;
+	line-height: 1.8;
+}
+.install-docs {
+	font-size: 12px;
+	color: var(--muted);
+}
+.card-heading {
+	margin: 0;
+	padding: 18px 20px 0;
+	font-size: 12px;
 	font-weight: 400;
 	color: var(--muted);
 }
-.intro {
-	display: flex;
-	align-items: end;
-	justify-content: space-between;
-	gap: 24px;
-	margin: 56px 0 40px;
-}
-.eyebrow {
-	font-size: 10px;
-	letter-spacing: 2px;
-	color: var(--green);
-	margin: 0 0 14px;
-}
-h1 {
-	font-size: 42px;
-	letter-spacing: -1.3px;
-	font-weight: 600;
-	margin: 0;
-	line-height: 1.4;
-}
-.lead {
-	font-size: 14px;
-	line-height: 1.9;
-	color: var(--muted);
-	margin: 0 0 6px;
-}
-.toolbar {
-	display: flex;
-	justify-content: space-between;
-	gap: 24px;
-	align-items: center;
-	border-top: 1px solid var(--line);
-	padding-top: 24px;
-}
-.views {
-	display: flex;
-	padding: 4px;
-	border: 1px solid var(--line);
-	border-radius: 9px;
-	gap: 3px;
-}
-button {
-	font: inherit;
-	font-size: 12px;
-	border: 0;
-	background: transparent;
-	color: var(--muted);
-	padding: 9px 17px;
-	border-radius: 5px;
-	cursor: pointer;
-}
-button[aria-pressed="true"] {
-	background: var(--ink);
-	color: white;
-}
-button:focus-visible,
-input:focus-visible {
-	outline: 2px solid var(--green);
-	outline-offset: 4px;
-}
-.width-control {
-	display: flex;
-	align-items: center;
-	gap: 15px;
-	font-size: 12px;
-	color: var(--muted);
-}
-input[type="range"] {
-	width: 150px;
-	accent-color: var(--green);
-}
-output {
-	font-variant-numeric: tabular-nums;
-	min-width: 50px;
-	color: var(--ink);
-}
-.toolbar-note {
-	font-size: 11px;
-	color: var(--muted);
-	margin: 13px 0 34px;
-}
-.column-labels {
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: 20px;
-	font-size: 11px;
-	letter-spacing: 1.4px;
-	margin-bottom: 16px;
-}
-.column-labels span {
-	padding-left: 24px;
-}
-.column-labels small {
-	font-size: 11px;
-	letter-spacing: 0;
-	color: var(--muted);
-	margin-left: 12px;
-}
-.after-label {
+.after .card-heading {
 	color: var(--green);
 }
 .case {
@@ -198,7 +152,9 @@ output {
 	justify-content: center;
 }
 .sample {
-	width: min(100%, var(--sample-width));
+	width: var(--sample-width);
+	max-width: 100%;
+	flex-shrink: 0;
 	container-type: inline-size;
 	text-autospace: no-autospace;
 	overflow-wrap: normal;
@@ -293,25 +249,10 @@ footer {
 	border-top: 1px solid var(--line);
 	padding-top: 24px;
 }
-footer p {
-	font-size: 18px;
-}
 footer span {
 	font-size: 10px;
 	color: var(--muted);
 	line-height: 1.9;
-}
-body[data-view="before"] .after,
-body[data-view="after"] .before,
-body[data-view="before"] .after-label,
-body[data-view="after"] .before-label {
-	display: none;
-}
-body[data-view="before"] .pair,
-body[data-view="after"] .pair,
-body[data-view="before"] .column-labels,
-body[data-view="after"] .column-labels {
-	grid-template-columns: 1fr;
 }
 @container (max-width: 430px) {
 	.responsive-break {
@@ -331,67 +272,17 @@ body[data-view="after"] .column-labels {
 	}
 }
 @media (max-width: 760px) {
-	main {
-		padding: 28px 20px;
-	}
-	.intro {
-		display: block;
-		margin: 38px 0 28px;
-	}
-	h1 {
-		font-size: 30px;
-	}
-	.lead {
-		margin-top: 16px;
-	}
-	.toolbar {
-		align-items: start;
-		flex-direction: column;
-		gap: 18px;
-	}
-	.width-control {
-		width: 100%;
-	}
-	input[type="range"] {
-		flex: 1;
-		min-width: 50px;
-	}
 	.pair {
-		grid-template-columns: 1fr;
+		grid-template-columns: minmax(0, 1fr);
 		gap: 12px;
-	}
-	.column-labels {
-		display: none;
 	}
 	.case-description {
 		display: none;
 	}
-	.panel::before {
-		display: block;
-		padding: 14px 20px 0;
-		font-size: 10px;
-		letter-spacing: 1.4px;
-		color: var(--muted);
-		content: "BEFORE";
+	main {
+		padding: 28px 20px;
 	}
-	.panel.after::before {
-		content: "AFTER";
-		color: var(--green);
-	}
-	.stage {
-		padding: 24px 16px;
-		min-height: 165px;
-	}
-	.sample p {
-		font-size: 23px;
-	}
-	.case {
-		margin-bottom: 30px;
-	}
-	footer {
-		display: block;
-	}
-	footer span {
-		display: block;
+	h1 {
+		font-size: 26px;
 	}
 }

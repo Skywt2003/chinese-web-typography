@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>中文网页排版 · Before & After</title>
+  <title>Chinese Web Typography</title>
   <link rel="stylesheet" href="style.css">
   <script src="vendor/pangu.umd.js" defer></script>
   <script src="demo.js" defer></script>
@@ -11,21 +11,23 @@
 <body>
   <main>
     <header>
-      <a class="wordmark" href="https://github.com/Skywt2003/chinese-web-typography">字间 <span>/ CHINESE WEB TYPOGRAPHY</span></a>
-      <div class="intro"><div><p class="eyebrow">SMALL DETAILS. BETTER READING.</p><h1>好排版，藏在细节里。</h1></div><p class="lead">相同的文字，相同的字号。<br>让空距、换行与视觉重心，各得其所。</p></div>
+      <h1>Chinese Web Typography</h1>
+      <p class="subtitle">来源：<a href="https://skywt.cn/blog/apple-typography-details">Apple 官网排版细节鉴赏 ↗</a></p>
     </header>
-    <section class="toolbar" aria-label="演示设置">
-      <div class="views" role="group" aria-label="显示模式">
-        <button type="button" data-view="compare" aria-pressed="true">左右对照</button>
-        <button type="button" data-view="before" aria-pressed="false">Before</button>
-        <button type="button" data-view="after" aria-pressed="false">After</button>
-      </div>
-      <label class="width-control">示例宽度 <input id="width" type="range" min="260" max="600" value="360" step="1"><output for="width" id="width-value">360 px</output></label>
+    <section class="install" aria-labelledby="install-title">
+      <h2 id="install-title">安装与使用</h2>
+      <p>在项目目录运行，按提示选择使用的 AI 编程工具：</p>
+      <pre><code>npx skills add Skywt2003/chinese-web-typography --skill chinese-web-typography</code></pre>
+      <p>安装后，对 agent 说：</p>
+      <blockquote>使用 chinese-web-typography 优化这个页面的中文排版，保留原文，并验证手机和桌面效果。</blockquote>
+      <a class="install-docs" href="https://github.com/Skywt2003/chinese-web-typography#安装-skill">完整安装说明 ↗</a>
     </section>
-    <p class="toolbar-note">拖动宽度观察换行；窄屏会自动缩至可用空间。每组仅调整注明的规则。</p>
-    <div class="column-labels" aria-hidden="true"><span class="before-label">BEFORE <small>浏览器默认排版</small></span><span class="after-label">AFTER <small>有意识的微调</small></span></div>
+    <section class="comparison" aria-label="排版前后对照">
+      <div class="comparison-content">
     <div id="gallery"></div>
-    <footer><p>让文字自然地被阅读。</p><span>灵感来自 SkyWT · <a href="https://skywt.cn/blog/apple-typography-details">Apple 官网排版细节鉴赏 ↗</a><br>同一字体：Noto Sans SC · 空距：pangu.js 10.4.1 · 六组独立示例</span></footer>
+      </div>
+    </section>
+    <footer><span>By <a href="https://skywt.net">SkyWT</a></span></footer>
   </main>
 </body>
 </html>
